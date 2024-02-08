@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json.schemastore.org/eslintrc",
+  "env": {
+    "browser": true,
+    "es2021": true,
+  },
+  "extends": [
+    "eslint:recommended",
+    // import React from 'react'에서 React를 사용 하지 않을 경우 에러처리 규칙
+    "plugin:react/recommended",
+    // Prettier와 ESLint를 통합한 설정을 포함합니다.
+    "prettier",
+    // TypeScript 관련 규칙을 포함합니다.
+    "plugin:@typescript-eslint/recommended",
+    // prettierrc 대신 사용 가능한 플러그인을 추가합니다.
+    "plugin:prettier/recommended",
+  ],
+  "plugins": [
+    // 코드를 간단한 형태로 가져오는데 도움을 주는 플러그인입니다.
+    "simple-import-sort",
+    // 객체 분해(destructure)의 키를 정렬해주는 플러그인입니다.
+    "sort-destructure-keys",
+    // 객체의 키를 정렬해주는 플러그인입니다.
+    "sort-keys-fix",
+  ],
+  // TypeScript 코드를 분석하는 데 사용되는 파서를 지정합니다.
+  "parser": "@typescript-eslint/parser",
+  // 파서 옵션을 설정합니다.
+  "parserOptions": {
+    // 사용할 ECMAScript 버전을 지정합니다.
+    // "latest"로 설정하여 최신 ECMAScript 버전을 사용합니다.
+    "ecmaVersion": "latest",
+    // 코드 소스의 타입을 지정합니다.
+    // "module"로 설정하여 ES6 모듈 형식을 사용하는 것을 나타냅니다.
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+    },
+  },
+  "rules": {
+    // prettier 설정
+    "@typescript-eslint/quotes": ["warn", "single"],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "quoteProps": "consistent",
+        "jsx-quotes": "prefer-double",
+        "arrow-parens": true,
+        "semi": true,
+        "trailingComma": "es5",
+      },
+      {
+        "usePrettierrc": false,
+      },
+    ],
+    // any타입 에러 -> 경고로 변경 (나중에 에러로 바꿔야함)
+    "@typescript-eslint/no-explicit-any": "warn",
+    //변수 및 속성 이름을 카멜 케이스(camelCase)로 작성해야 함
+    "camelcase": "warn",
+    // 코드 엔터 간격 조정
+    "no-multiple-empty-lines": [
+      "warn",
+      {
+        "max": 1, // 최대 1개의 연속된 빈 줄 허용
+        "maxBOF": 0, // 파일 시작 부분에 빈 줄 허용하지 않음
+        "maxEOF": 0, // 파일 끝 부분에 빈 줄 허용하지 않음
+      },
+    ],
+    //코드에서 console.log와 같은 console 사용을 금지하며, 경고나 에러를 발생시킴
+    "no-console": "error",
+    // 함수 내에서 함수 파라미터의 값을 변경하는 것을 금지
+    "no-param-reassign": "error",
+    // dot 표기법 사용을 권장하지만, dot 표기법이 어울리지 않을 때에만 경고를 발생시킵니다.
+    "dot-notation": "warn",
+    // 항상 엄격한 등호(===)를 사용하도록 권장하며, null과 관련된 비교에서는 무시합니다.
+    "eqeqeq": [
+      "warn",
+      "always",
+      {
+        "null": "ignore",
+      },
+    ],
+    // else 블록 없이 if문 뒤에 바로 return하는 패턴을 권장합니다.
+    "no-else-return": [
+      "warn",
+      {
+        "allowElseIf": false,
+      },
+    ],
+    // 함수 콜백을 선호하는 경우 화살표 함수를 사용할 것
+    "prefer-arrow-callback": "error",
+    // 단독 if 문 사용을 권장하지만 else if를 사용하는 것은 허용합니다.
+    "no-lonely-if": "warn",
+    // 변수를 undefined로 초기화하는 것을 비허용합니다.
+    "no-undef-init": "off",
+    //블록 문 내에서 단독으로 사용되는 블록 금지
+    //ex) if (condition) {
+    //     {
+    //    console.log("This is a lone block.");
+    //      }
+    //    }
+    "no-lone-blocks": "error",
+    // Optional chaining의 산술 연산을 비허용합니다.
+    "no-unsafe-optional-chaining": [
+      "warn",
+      {
+        "disallowArithmeticOperators": true,
+      },
+    ],
+    //접근할 수 없는 코드를 경고 ex)리턴문 뒤에 오는 코드
+    "no-unreachable": "warn",
+    // 계산된 프로퍼티 키 사용을 권장하지만, 불필요한 경우에만 경고를 발생시킵니다.
+    "no-useless-computed-key": "warn",
+    // 변수에 할당 후 리턴하는 경우를 권장하지만, 불필요한 경우에만 경고를 발생시킵니다.
+    "no-useless-rename": "warn",
+    // 불필요한 return문 사용을 권장하지만, 필요한 경우에만 경고를 발생시킵니다.
+    "no-useless-return": "warn",
+    // var 사용을 금지하며, 대신 let이나 const를 사용하도록 권장합니다.
+    "no-var": "warn",
+    // 불필요한 삼항 연산자를 경고합니다.
+    "no-unneeded-ternary": [
+      "warn",
+      {
+        "defaultAssignment": false,
+      },
+    ],
+    //중첩된 삼항 연산자 금지
+    "no-nested-ternary": "error",
+    // 사용되지 않은 표현식을 확인하고 허용된 표현식을 설정에 따라 허용
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowTernary": true,
+        //이 속성을 true로 설정하면 삼항 연산자를 사용한 표현식을 사용할 때
+        // 경고를 발생시키지 않는다. 즉, 삼항 연산자를 허용함.
+        "allowShortCircuit": true,
+        //이 속성을 true로 설정하면 단축 평가 논리 연산자를 사용한 표현식을 사용할 때
+        //경고를 발생시키지 않는다. 즉, &&나 ||와 같은 논리 연산자를 허용함.
+        "allowTaggedTemplates": true,
+        //이 속성을 true로 설정하면 템플릿 리터럴 내에서 태그드 템플릿을 사용한 표현식을 사용할 때
+        //경고를 발생시키지 않는다. 즉, 태그드 템플릿을 허용함.
+      },
+    ],
+    //사용되지 않은 변수를 확인하고, 설정에 따라 허용함.
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        //이 속성은 모든 변수를 대상으로 규칙을 적용함을 나타낸다.
+        //즉, 모든 변수가 사용되지 않으면 경고가 발생한다.
+        "args": "after-used",
+        //이 속성은 함수의 인자(parameter)에 대한 규칙을 설정한다.
+        //"after-used"로 설정되어 있으므로, 인자가 함수 내에서 사용된 후에만
+        //사용되지 않은 것으로 간주. 인자가 사용되기 전에 정의되었더라도 함수 내에서 사용되면
+        //경고가 발생하지 않는다.
+        "ignoreRestSiblings": false,
+        //이 속성은 나머지 인자 및 구조분해 할당 시 생성되는 변수에 대한 규칙을 설정한다.
+        //false로 설정되어 있으므로, 나머지 인자나 해체 할당 변수가 사용되지 않으면 경고가 발생한다.
+      },
+    ],
+    //생성자 함수의 이름을 대문자로 시작해야 함을 확인한다.
+    "new-cap": "warn",
+    // 객체의 속성을 축약형으로 표현하도록 권장합니다.
+    "object-shorthand": [
+      "warn",
+      "always",
+      {
+        "avoidQuotes": true,
+        "ignoreConstructors": false,
+      },
+    ],
+    // 한 번에 여러 개의 변수를 선언하지 않도록 권장합니다.
+    "one-var": ["warn", "never"],
+    // 할당 연산자를 사용하도록 권장합니다.
+    "operator-assignment": "warn",
+    // 상수 변수 선언에 const를 사용하도록 권장합니다.
+    "prefer-const": [
+      "warn",
+      {
+        "ignoreReadBeforeAssign": true,
+      },
+    ],
+    // 객체나 배열의 비구조화 할당을 권장하며, 배열 대신 객체의 비구조화 할당을 허용합니다.
+    "prefer-destructuring": [
+      "warn",
+      {
+        "AssignmentExpression": {
+          "array": true,
+          "object": false,
+        },
+        "VariableDeclarator": {
+          "array": false,
+          "object": true,
+        },
+      },
+    ],
+    //Promise 생성자의 인자로 async 함수를 사용하는 것을 금지
+    "no-async-promise-executor": "error",
+    // Math.pow()보다 지수 연산자(**) 사용을 권장합니다.
+    "prefer-exponentiation-operator": "warn",
+    // 숫자 리터럴 대신 16진수나 8진수를 사용하도록 권장합니다.
+    "prefer-numeric-literals": "warn",
+    // Object.assign()보다 객체 전파 연산자({...})를 사용하도록 권장합니다.
+    "prefer-object-spread": "warn",
+    // 문자열 연결 대신 템플릿 리터럴을 사용하도록 권장합니다.
+    "prefer-template": "warn",
+    //문자열 안에서 불필요한 템플릿 리터럴 구문(${})을 사용하지 않도록 경고
+    "no-template-curly-in-string": "warn",
+    // useEffect에서 의존성 배열을 완벽하게 지정하도록 강제합니다.
+    "react-hooks/exhaustive-deps": "warn",
+    // Hooks 규칙을 준수하도록 강제합니다.
+    "react-hooks/rules-of-hooks": "error",
+    // 컴포넌트의 display name을 지정하지 않도록 허용합니다.
+    "react/display-name": "off",
+    // 함수 컴포넌트 정의에 화살표 함수 사용을 권장합니다.
+    "react/function-component-definition": [
+      "warn",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function",
+      },
+    ],
+    // JSX 속성에 불필요한 불리언 값을 허용하지 않습니다. (자동 수정)
+    "react/jsx-boolean-value": "warn",
+    // JSX 중괄호({})에 공백을 추가하도록 권장합니다.
+    "react/jsx-curly-brace-presence": "warn",
+    // Fragment 대신 축약형 형태의 JSX 사용을 권장합니다.
+    "react/jsx-fragments": "warn",
+    // JSX 요소의 키(key) 속성 사용을 권장합니다.
+    "react/jsx-key": "warn",
+    // 중복된 JSX 속성 사용을 감지하도록 권장합니다.
+    "react/jsx-no-duplicate-props": [
+      "warn",
+      {
+        "ignoreCase": true,
+      },
+    ],
+    // 불필요한 JSX Fragment 사용을 감지하도록 권장합니다.
+    "react/jsx-no-useless-fragment": "warn",
+    // JSX 속성을 정렬하도록 권장합니다. (옵션 변경)
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "reservedFirst": true,
+        "shorthandLast": true,
+      },
+    ],
+    // JSX에서 React를 불필요하게 사용하지 않도록 허용합니다.
+    // "react/jsx-uses-react": "off",
+    // 상태 객체를 직접 수정하는 것을 허용합니다.
+    // "react/no-direct-mutation-state": "off",
+    // 무효한 HTML 속성 사용을 감지하도록 권장합니다.
+    "react/no-invalid-html-attribute": "warn",
+    // 알 수 없는 DOM 속성 사용시 에러가 발생됩니다.
+    // igonore에 속성 추가 시, 해당 속성은 무시됩니다.
+    "react/no-unknown-property": [
+      "warn",
+      {
+        "ignore": ["sx"],
+      },
+    ],
+    // prop-types 사용을 비허용합니다.
+    "react/prop-types": "off",
+    // self-closing 컴포넌트 사용을 권장합니다.
+    "react/self-closing-comp": "warn",
+    //중복된 import문 금지
+    "no-duplicate-imports": "error",
+    // import, export문 정렬을 권장합니다.
+    "simple-import-sort/exports": "warn",
+    "simple-import-sort/imports": "warn",
+    // 비구조화 할당된 키를 정렬하도록 권장합니다.
+    "sort-destructure-keys/sort-destructure-keys": "warn",
+    // 객체 키를 정렬하도록 권장합니다.
+    "sort-keys-fix/sort-keys-fix": "warn",
+    //import 문에서 파일 확장자를 명시적으로 지정할지 여부를 설정
+    "import/extensions": "off",
+    // 익명의 기본값 내보내기를 비허용합니다.
+    "import/no-anonymous-default-export": [
+      2,
+      {
+        "allowObject": true,
+      },
+    ],
+    // 주석 스타일을 규칙에 따라 권장합니다.
+    "spaced-comment": [
+      "warn",
+      "always",
+      {
+        "block": {
+          "balanced": true,
+          "exceptions": ["-", "+"],
+          "markers": ["=", "!", ":", "::"],
+        },
+        "line": {
+          "exceptions": ["-", "+"],
+          "markers": ["=", "!", "/"],
+        },
+      },
+    ],
+    // use strict 선언을 권장하지만, 코드에 삽입되지 않도록 허용합니다.
+    "strict": ["warn", "never"],
+  },
+}
